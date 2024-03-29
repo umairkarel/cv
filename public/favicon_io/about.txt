@@ -1,6 +1,6 @@
 This favicon was generated using the following font:
 
-- Font Title: Cutive Mono
-- Font Author: Copyright 2012 The Cutive Project Authors (vern@newtypography.co.uk)
-- Font Source: http://fonts.gstatic.com/s/cutivemono/v14/m8JWjfRfY7WVjVi2E-K9H5RFRG-K3Mud.ttf
+- Font Title: Leckerli One
+- Font Author: Copyright (c) 2011 Gesine Todt (www.gesine-todt.de hallo@gesine-todt.de), with Reserved Font Names "Leckerli"
+- Font Source: https://fonts.gstatic.com/s/leckerlione/v20/V8mCoQH8VCsNttEnxnGQ-1itLZxcBtItFw.ttf
 - Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
