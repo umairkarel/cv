@@ -1,0 +1,84 @@
+{
+  "main": {
+    "name": "Umair Karel",
+    "occupation": "Backend Developer",
+    "description": "I thrive on transforming concepts into code, turning imagination into reality.",
+    "contactmessage": "Have me make stuff for you. If you like my work and have some cool projects to work on, just send me a direct message or contact me through social sites.",
+    "email": "umair.karel@gmail.com",
+    "phone": "+91 9370621692",
+    "about": "<p>Strong in design and integration with intuitive problem-solving skills. Proficient in MERN Stack Development, (Highest Rating 1879 [4⭐]) on CodeChef, (max. specialist, 1476) on Codeforces, ACM ICPC Regionalist '20. <br /><br />Passionate about implementing and launching new projects. Ability to translate business requirements into technical solutions. Looking to start the career as an entry-level software engineer with a reputed firm driven by technology.</p>",
+    "address": {
+      "city": "Mangaon, Raigad",
+      "state": "MH",
+      "zip": "402102"
+    },
+    "website": "/",
+    "resumedownload": "https://drive.google.com/file/d/1761iQz_zaKeO6-vt2Duepa3HQW6cb_pv/view?usp=sharing",
+    "social": [
+      {
+        "name": "linkedin",
+        "url": "https://www.linkedin.com/in/umairkarel/",
+        "className": "fa fa-linkedin"
+      },
+      {
+        "name": "github",
+        "url": "https://github.com/umairkarel",
+        "className": "fa fa-github"
+      },
+      {
+        "name": "email",
+        "url": "mailto:umair.karel@gmail.com?subject=The%20subject%20of%20the%20mail",
+        "className": "fa fa-envelope"
+      }
+    ]
+  },
+  "resume": {
+    "education": [
+      {
+        "school": "Dr. Babasaheb Ambedkar Technological University",
+        "degree": "B. Tech",
+        "specialization": "Computer Science",
+        "graduated": "2019-2023"
+      },
+      {
+        "school": "S.S Nikam English School and Junior Science College",
+        "degree": "Higher Secondary",
+        "specialization": "Science",
+        "graduated": "2017-2019"
+      }
+    ],
+    "work": [
+      {
+        "company": "Sarvaha Systems Pvt. Ltd.",
+        "title": "Software Engineer",
+        "years": "July 2023 - Present",
+        "description": [
+          "• Working on HIDS system, Responsible for re-engineering and developing front-end & back-end for the existing HIDS system to achieve customized features.",
+          "• Worked on machine learning-driven solution to forecast stock market indices, utilized advanced ML techniques including bagging, stacking, and meta-labelling.",
+          "• Achieved good predictive accuracy by incorporating diverse features, including historical prices, prices of top influential stocks, and external factors into the modeling process."
+        ]
+      },
+      {
+        "company": "Sarvaha Systems Pvt. Ltd.",
+        "title": "Software Engineering Intern",
+        "years": "Jan 2023 - June 2023",
+        "description": [
+          "• Designed and implemented a production-ready microservice using Flask to scrape data from websites and store it in a MongoDB database. This API leveraged containerization for improved deployment and scalability.",
+          "• Integrated Celery and Redis to handle scraping tasks asynchronously, enhancing API performance by offloading time-consuming tasks.",
+          "• Integrated cron functionality to automate data scraping at regular intervals, ensuring up-to-date information retrieval every 24 hours without manual intervention.",
+          "• Enforced best practices throughout the project by employing Poetry dependency management, linter and formatter with automated enforcement via git commit hooks."
+        ]
+      },
+      {
+        "company": "Medpiper Technologies Pvt. Ltd.",
+        "title": "Backend Developer (Python)",
+        "years": "Oct 2021 - Apr 2022",
+        "description": [
+          "• Led the Engineering and maintenance of the Backend for two projects , JournoMed and CRM, using Django and Flask frameworks.",
+          "• Implemented REST APIs using both PostgreSQL and MongoDB as databases with the latest database design and management practices.",
+          "• Documented all API endpoints to ensure smooth and efficient communication across the team."
+        ]
+      }
+    ]
+  }
+}
