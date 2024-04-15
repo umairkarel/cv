@@ -1,6 +1,5 @@
 import React from "react";
 import profilepic from "../images/thumbs/profilepic.png";
-import resume from "../assets/resume.pdf";
 
 const About = ({ data }) => {
   if (data) {
@@ -12,6 +11,7 @@ const About = ({ data }) => {
     var phone = data.phone;
     var email = data.email;
     var about = data.about;
+    var resumeDownload = data.resumeDownload;
   }
 
   return (
@@ -46,9 +46,8 @@ const About = ({ data }) => {
             </div>
             <div className="columns download">
               <p>
-                {console.log(resume)}
                 <a
-                  href={resume}
+                  href={resumeDownload}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="button">
