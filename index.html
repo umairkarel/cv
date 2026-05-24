@@ -339,7 +339,7 @@
       width: 7px; height: 7px; border-radius: 50%; opacity: 0;
       background: var(--cyan); box-shadow: 0 0 8px var(--cyan), 0 0 18px rgba(0,212,255,0.4);
     }
-    .pipe-divider.in .pipe-pkt { animation: pktFlow 2.2s ease 0.9s both; }
+    .pipe-divider.in .pipe-pkt { animation: pktFlow 2.2s ease 0.9s infinite; }
     @keyframes pktFlow {
       0%  { left: 0; opacity: 0; }
       4%  { opacity: 1; }
@@ -349,35 +349,32 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      /* Nav */
       .nav-links { display: none; }
       nav { padding: 0.85rem 1.25rem; }
 
-      /* Sections */
       .section-wrap { padding: 3.5rem 1.25rem; }
       .section-full { padding: 3.5rem 0; }
       .section-full .inner { padding: 0 1.25rem; }
       .divider { margin-bottom: 2rem; }
 
-      /* Hero */
       .hero-content { padding: 0 1.25rem; }
-      .hero-badge { font-size: 0.68rem; padding: 0.28rem 0.8rem; }
-      .hero-desc { font-size: 0.95rem; }
-      .hero-buttons { flex-direction: column; align-items: center; }
+      .hero-badge { font-size: 0.68rem; padding: 0.28rem 0.8rem; margin-bottom: 1rem; }
+      .hero-name { margin-bottom: 0.65rem; }
+      .hero-title { margin-bottom: 1rem; }
+      .hero-desc { font-size: 0.92rem; margin-bottom: 1.75rem; }
+      #hero { height: auto; min-height: 100vh; flex-direction: column; justify-content: center; padding: 5rem 0 2.5rem; }
+      .hero-buttons { flex-direction: column; align-items: center; gap: 0.65rem; }
       .hero-buttons a { width: 100%; max-width: 260px; text-align: center; }
-      /* hide a few floating keywords so they don't crowd mobile */
+      .scroll-hint { position: relative; bottom: auto; left: auto; transform: none; margin-top: 1.75rem; }
       .floating-kw:nth-child(n+7) { display: none; }
 
-      /* About */
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .stat-num { font-size: 2rem; }
 
-      /* Skills */
       .skills-wrap { gap: 1.75rem; }
       .tag { font-size: 0.78rem; }
 
-      /* Experience */
       .timeline { padding-left: 1.25rem; }
       .job { padding-left: 1.25rem; margin-bottom: 2rem; }
       .job-body { padding: 1rem; }
@@ -386,29 +383,21 @@
       .chips { gap: 0.3rem; }
       .chip { font-size: 0.64rem; }
 
-      /* Projects */
       .proj-card { padding: 1.25rem; }
       .proj-card-title { font-size: 1.15rem; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
 
-      /* Achievements */
       .ach-grid { grid-template-columns: 1fr; }
       .ach-card { padding: 1.1rem; }
 
-      /* Education */
       .edu-card { flex-direction: column; gap: 1rem; padding: 1.25rem; }
       .edu-icon { width: 44px; height: 44px; font-size: 1.4rem; }
 
-      /* Contact */
       .contact-links { flex-direction: column; align-items: stretch; }
       .c-link { justify-content: center; }
 
-      /* Pipeline dividers */
       .pipe-divider { padding: 0.25rem 1.25rem 1.5rem; }
-      .pn-lbl { font-size: 0.52rem; letter-spacing: 0.06em; }
-      /* hide extra nodes on narrow screens */
-      .pipe-nodes .pn:nth-child(n+4) { display: none; }
+      .pn-lbl { font-size: 0.52rem; letter-spacing: 0.04em; }
 
-      /* Footer */
       footer { font-size: 0.68rem; }
     }
 
@@ -418,597 +407,29 @@
       .job-co { font-size: 1.05rem; }
       .proj-name { font-size: 0.85rem; }
       .section-h { line-height: 1.2; }
-      /* only show first 2 pipeline nodes on very small screens */
-      .pipe-nodes .pn:nth-child(n+3) { display: none; }
+      .pn-lbl { font-size: 0.44rem; letter-spacing: 0; }
       .pipe-caption { display: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="#hero" class="nav-logo">umair<span>.dev</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#achievements">Achievements</a></li>
-    <li><a href="#contact-section">Contact</a></li>
-  </ul>
-</nav>
+<nav id="nav"></nav>
 
-<!-- HERO -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
-
-  <span class="floating-kw" style="left:8%;bottom:22%;--dur:9s;--delay:0s">SELECT *</span>
-  <span class="floating-kw" style="left:78%;bottom:28%;--dur:11s;--delay:2s">dbt run</span>
-  <span class="floating-kw" style="left:18%;bottom:12%;--dur:8s;--delay:4s">ELT</span>
-  <span class="floating-kw" style="left:68%;bottom:14%;--dur:10s;--delay:1s">Kafka</span>
-  <span class="floating-kw" style="left:48%;bottom:8%;--dur:9s;--delay:3s">Snowflake</span>
-  <span class="floating-kw" style="left:33%;bottom:32%;--dur:12s;--delay:5s">PARTITION BY</span>
-  <span class="floating-kw" style="left:87%;bottom:42%;--dur:8s;--delay:0.5s">K8s</span>
-  <span class="floating-kw" style="left:4%;bottom:52%;--dur:10s;--delay:3.5s">BigQuery</span>
-  <span class="floating-kw" style="left:58%;bottom:45%;--dur:13s;--delay:6s">medallion</span>
-  <span class="floating-kw" style="left:25%;bottom:60%;--dur:9s;--delay:2.5s">WITH cte AS</span>
-
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      Available for new opportunities
-    </div>
-    <h1 class="hero-name">Umair Zahoor Karel</h1>
-    <div class="hero-title">
-      <span id="typer"></span><span class="cursor"></span>
-    </div>
-    <p class="hero-desc">
-      Performance-driven Engineer with 3 years of experience in designing and maintaining scalable solutions.
-      Specialized in Engineering the path from raw data to actionable insights.
-    </p>
-    <div class="hero-buttons">
-      <a href="#experience" class="btn-primary">View My Work</a>
-      <a href="https://www.linkedin.com/in/umairkarel/" target="_blank" class="btn-ghost">LinkedIn</a>
-      <a href="https://github.com/umairkarel" target="_blank" class="btn-ghost">GitHub</a>
-    </div>
-  </div>
-
+  <div class="hero-content"></div>
   <div class="scroll-hint">
     <div class="scroll-mouse"></div>
     <span>SCROLL</span>
   </div>
 </section>
 
-<!-- ABOUT -->
-<div class="section-wrap" id="about">
-  <div class="label">About me</div>
-  <h2 class="section-h">Turning Data into <span>Decisions</span></h2>
-  <div class="divider"></div>
+<div id="app"></div>
 
-  <div class="about-grid reveal">
-    <div class="about-text">
-      <p>Performance-driven Engineer with <strong>3 years of experience</strong> in designing and maintaining scalable solutions. Skilled in <strong>Snowflake</strong>, <strong>dbt</strong>, and <strong>ADF</strong> with a proven track record of developing scalable <strong>ELT pipelines</strong> for large scale multi-national clients.</p>
-      <p>Specialized in Engineering the path from raw data to actionable insights — from multi-source ingestion via <strong>Azure Data Factory</strong> and <strong>Apache Kafka</strong>, to transformation in <strong>Snowflake</strong> and <strong>BigQuery</strong> using <strong>dbt</strong>, to delivery through <strong>Power BI</strong> and <strong>Grafana</strong> dashboards.</p>
-      <p><strong>Snowflake SnowPro Core Certified.</strong> Recipient of the <strong>SQL Samurai Award</strong> from a multinational client for outstanding SQL analysis and optimization.</p>
-    </div>
-    <div class="stats-grid">
-      <div class="stat-card"><span class="stat-num" data-count="3">0</span><span class="stat-lbl">Years Experience</span></div>
-      <div class="stat-card"><span class="stat-num" data-count="10">0</span><span class="stat-lbl">Brands Served</span></div>
-      <div class="stat-card"><span class="stat-num" data-count="4">0</span><span class="stat-lbl">Major Projects</span></div>
-      <div class="stat-card"><span class="stat-num" data-count="3">0</span><span class="stat-lbl">Certifications</span></div>
-    </div>
-  </div>
-</div>
+<footer></footer>
 
-<!-- PIPE DIVIDER 1 -->
-<div class="pipe-divider">
-  <div class="pipe-inner">
-    <div class="pipe-rail"></div>
-    <div class="pipe-nodes">
-      <div class="pn" style="left:8%"><div class="pn-dot"></div><div class="pn-lbl">Extract</div></div>
-      <div class="pn" style="left:30%"><div class="pn-dot"></div><div class="pn-lbl">Load</div></div>
-      <div class="pn" style="left:55%"><div class="pn-dot"></div><div class="pn-lbl">Transform</div></div>
-      <div class="pn" style="left:78%"><div class="pn-dot"></div><div class="pn-lbl">Serve</div></div>
-      <div class="pn" style="left:95%"><div class="pn-dot"></div><div class="pn-lbl">✓</div></div>
-    </div>
-    <div class="pipe-pkt"></div>
-    <div class="pipe-caption">// ELT pipeline</div>
-  </div>
-</div>
-
-<!-- SKILLS -->
-<div class="section-full" id="skills">
-  <div class="inner">
-    <div class="label">Technical Arsenal</div>
-    <h2 class="section-h">Skills &amp; <span>Technologies</span></h2>
-    <div class="divider"></div>
-    <div class="skills-wrap">
-
-      <div class="skill-cat reveal">
-        <h3>Databases / Data Warehouses</h3>
-        <div class="skill-tags">
-          <span class="tag hi">Snowflake</span><span class="tag hi">Databricks</span><span class="tag hi">BigQuery</span>
-          <span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">OpenSearch</span>
-        </div>
-      </div>
-
-      <div class="skill-cat reveal">
-        <h3>Data Engineering</h3>
-        <div class="skill-tags">
-          <span class="tag hi">DBT</span><span class="tag hi">Apache Airflow</span><span class="tag hi">Azure Data Factory</span>
-          <span class="tag hi">Azure Data Lake</span><span class="tag hi">Apache Kafka</span><span class="tag">PySpark</span>
-          <span class="tag">Pandas</span><span class="tag">Numpy</span><span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span>
-        </div>
-      </div>
-
-      <div class="skill-cat reveal">
-        <h3>Tools / Platforms</h3>
-        <div class="skill-tags">
-          <span class="tag hi">PowerBI</span><span class="tag hi">Grafana</span><span class="tag hi">Docker</span>
-          <span class="tag">Git</span><span class="tag">Traefik</span><span class="tag">Redis</span>
-          <span class="tag">Celery</span><span class="tag">Fluent Bit</span><span class="tag">Graylog</span>
-        </div>
-      </div>
-
-      <div class="skill-cat reveal">
-        <h3>Languages</h3>
-        <div class="skill-tags">
-          <span class="tag hi">Python</span><span class="tag hi">SQL</span>
-          <span class="tag">JavaScript</span><span class="tag">Java</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- PIPE DIVIDER 2 -->
-<div class="pipe-divider">
-  <div class="pipe-inner">
-    <div class="pipe-rail"></div>
-    <div class="pipe-nodes">
-      <div class="pn" style="left:12%"><div class="pn-dot"></div><div class="pn-lbl">Bronze</div></div>
-      <div class="pn" style="left:38%"><div class="pn-dot"></div><div class="pn-lbl">Silver</div></div>
-      <div class="pn" style="left:65%"><div class="pn-dot"></div><div class="pn-lbl">Gold</div></div>
-      <div class="pn" style="left:90%"><div class="pn-dot"></div><div class="pn-lbl">Analytics</div></div>
-    </div>
-    <div class="pipe-pkt"></div>
-    <div class="pipe-caption">// medallion architecture</div>
-  </div>
-</div>
-
-<!-- EXPERIENCE -->
-<div class="section-wrap" id="experience">
-  <div class="label">Career</div>
-  <h2 class="section-h">Work <span>Experience</span></h2>
-  <div class="divider"></div>
-
-  <div class="timeline">
-    <div id="pipe-dot"></div>
-
-    <!-- Sarvaha Systems -->
-    <div class="job" id="j1">
-      <div class="job-co">Sarvaha Systems Pvt. Ltd.</div>
-      <div class="job-meta">
-        <span class="job-role">Software Engineer</span>
-        <span class="job-period">Jan 2023 – Present</span>
-      </div>
-      <div class="job-body">
-
-        <div class="proj-block">
-          <div class="proj-name">Independence Pet Group <span class="proj-badge">Insurance · Analytics</span></div>
-          <ul class="bullets">
-            <li>Engineered multi-source <b>ELT pipelines</b> using <b>Azure Data Factory</b> to ingest data from <b>BigQuery</b>, <b>MSSQL</b>, and external <b>REST APIs</b> into <b>Snowflake</b> via <b>Azure Data Lake</b>, processing data across 10+ brands for a multinational client handling tens of GBs of data per brand.</li>
-            <li>Designed a unified <b>insurance policy data model</b> in <b>Snowflake</b> by integrating data from multiple source systems with heterogeneous schemas, enabling consistent cross-brand reporting and bridging legacy data structures with target analytical models.</li>
-            <li>Built <b>dbt</b> transformation pipelines implementing a three-tier <b>medallion architecture</b> (bronze/silver/gold), enforcing <b>data quality</b> and schema contracts across transformation layers to deliver analytics-ready datasets for data analysts and BI teams.</li>
-            <li>Transformed raw <b>GA4 BigQuery</b> event exports using <b>dbt</b>, parsing deeply nested <b>JSON event structures</b> into a normalized <b>star schema</b> with separate dimension and fact tables, reducing query complexity and enabling scalable consumption across downstream BI layers.</li>
-            <li>Designed and maintained a unified <b>sales attribution pipeline</b> in <b>Snowflake</b>, consolidating data from advertising platforms, <b>Google Analytics 4</b>, and transactional sales systems to enable cross-channel performance analysis and reporting.</li>
-            <li>Developed end-to-end <b>Power BI</b> semantic models and dashboards visualizing the complete <b>customer lifecycle funnel</b> from advertising attribution through sales conversion, policy renewals, claims, and churn, delivering unified <b>business intelligence</b> visibility to cross-functional stakeholders.</li>
-          </ul>
-          <div class="chips">
-            <span class="chip">ADF</span><span class="chip">Snowflake</span><span class="chip">dbt</span>
-            <span class="chip">BigQuery</span><span class="chip">Power BI</span><span class="chip">Azure Data Lake</span>
-          </div>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-name">FoldHealth <span class="proj-badge">Healthcare · Platform Migration</span></div>
-          <ul class="bullets">
-            <li>Led re-architecture of a <b>patient care analytics platform</b>, decoupling widget business logic from tightly coupled embedded <b>SQL</b> by migrating from a custom <b>React</b>-based dashboard system to a managed <b>BI platform</b>, reducing per-widget development overhead and enabling self-service reporting for clinical teams.</li>
-            <li>Designed and implemented <b>dbt</b> transformation pipelines in <b>BigQuery</b> using a <b>One Big Table (OBT)</b> pattern, pre-joining and denormalizing multi-entity clinical and operational data into wide analytical tables to serve as a <b>single source of truth</b> across multiple dashboard widgets and report types.</li>
-            <li>Profiled and optimized complex analytical <b>SQL</b> queries powering patient care widgets, refactoring query logic for <b>BigQuery</b> execution efficiency and validating output parity against original <b>React</b> widget data to guarantee correctness.</li>
-            <li>Ported complex widget business logic into the BI tool's <b>semantic layer</b>, creating reusable calculated fields and measures to maintain consistent <b>metric definitions</b> across reports and ensure a zero-regression migration from the React dashboard system.</li>
-            <li>Transformed nested, hierarchical <b>healthcare data</b> structures, including multi-level care hierarchies and patient event logs, into denormalized, analytics-ready flat tables in <b>BigQuery</b>, improving <b>dashboard query performance</b> and enabling direct BI ingestion without runtime transformation.</li>
-          </ul>
-          <div class="chips">
-            <span class="chip">dbt</span><span class="chip">BigQuery</span><span class="chip">SQL</span><span class="chip">Semantic Layer</span>
-          </div>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-name">Wazuh <span class="proj-badge">Security · Real-Time Pipelines</span></div>
-          <ul class="bullets">
-            <li>Re-engineered a distributed, agent-based <b>Host Intrusion Detection System (HIDS)</b> by architecting a multi-stage <b>log processing pipeline</b> using <b>Fluent Bit</b> for agent-side collection, <b>Graylog</b> for centralized filtering and enrichment, and <b>OpenSearch</b> as the indexed backend for fast security event querying.</li>
-            <li>Integrated <b>Apache Kafka</b> as a distributed message broker between <b>Fluent Bit</b> collectors and the <b>Graylog</b> processing layer, enabling real-time, fault-tolerant event ingestion with a decoupled producer-consumer architecture to handle burst traffic from multiple agents simultaneously.</li>
-            <li>Containerized and deployed the full HIDS stack on <b>Kubernetes</b>, configuring <b>Fluent Bit DaemonSets</b> for node-level log collection and <b>Graylog/OpenSearch StatefulSets</b> with health probes and rolling update strategies to ensure high availability across client tenants.</li>
-            <li>Built <b>multi-tenant Grafana</b> dashboards with <b>OpenSearch</b> data source integration, implementing namespace-isolated queries and role-based access controls to deliver per-client visibility over agent telemetry, threat indicators, and system health metrics.</li>
-          </ul>
-          <div class="chips">
-            <span class="chip">Apache Kafka</span><span class="chip">Kubernetes</span><span class="chip">Fluent Bit</span>
-            <span class="chip">Graylog</span><span class="chip">OpenSearch</span><span class="chip">Grafana</span>
-          </div>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-name">ApexaIQ <span class="proj-badge">AI SaaS · Backend</span></div>
-          <ul class="bullets">
-            <li>Designed and developed a <b>microservice API</b> using <b>FastAPI</b> to scrape and persist structured data into <b>MongoDB</b>, offloading long-running scraping tasks to a distributed <b>Celery</b> worker queue backed by <b>Redis</b> as the message broker, decoupling request handling from task execution to improve throughput.</li>
-            <li>Automated recurring scraping workflows using <b>cron job</b> scheduling and containerized the full service stack with <b>Docker Compose</b>, isolating service dependencies and ensuring consistent deployments across environments.</li>
-            <li>Wrote <b>pytest</b> unit and integration tests covering core scraping and task dispatch logic, and configured <b>pre-commit hooks</b> with <b>pylint</b> to enforce code quality standards on every commit.</li>
-          </ul>
-          <div class="chips">
-            <span class="chip">FastAPI</span><span class="chip">Celery</span><span class="chip">Redis</span><span class="chip">MongoDB</span><span class="chip">Docker</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Medpiper -->
-    <div class="job" id="j2">
-      <div class="job-co">Medpiper Technologies Pvt. Ltd.</div>
-      <div class="job-meta">
-        <span class="job-role">Backend Developer Intern</span>
-        <span class="job-period">Oct 2021 – Apr 2022</span>
-      </div>
-      <div class="job-body">
-        <div class="proj-block">
-          <div class="proj-name">JournoMed <span class="proj-badge">Health-Tech · Backend</span></div>
-          <ul class="bullets">
-            <li>Contributed to backend development of <b>JournoMed</b>, a health and medical news platform, implementing <b>RESTful API</b> endpoints using <b>Django</b> and <b>Flask</b> to support content management, article retrieval, and user authentication workflows.</li>
-            <li>Modeled application data using <b>Django ORM</b>, designing relational schemas for articles, categories, and user profiles, and wrote <b>SQL</b>-backed queries to support paginated content feeds and keyword-based search.</li>
-            <li>Maintained and extended an internal <b>CRM</b> application, implementing <b>CRUD</b> operations and resolving data consistency bugs to ensure a reliable single source of truth for cross-team operations.</li>
-          </ul>
-          <div class="chips">
-            <span class="chip">Python</span><span class="chip">Django</span><span class="chip">Flask</span><span class="chip">PostgreSQL</span><span class="chip">REST API</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- PIPE DIVIDER 3 -->
-<div class="pipe-divider">
-  <div class="pipe-inner">
-    <div class="pipe-rail"></div>
-    <div class="pipe-nodes">
-      <div class="pn" style="left:10%"><div class="pn-dot"></div><div class="pn-lbl">Ingest</div></div>
-      <div class="pn" style="left:33%"><div class="pn-dot"></div><div class="pn-lbl">Process</div></div>
-      <div class="pn" style="left:57%"><div class="pn-dot"></div><div class="pn-lbl">Enrich</div></div>
-      <div class="pn" style="left:80%"><div class="pn-dot"></div><div class="pn-lbl">Publish</div></div>
-    </div>
-    <div class="pipe-pkt"></div>
-    <div class="pipe-caption">// streaming pipeline</div>
-  </div>
-</div>
-
-<!-- PROJECTS -->
-<div class="section-wrap" id="projects">
-  <div class="label">Personal Work</div>
-  <h2 class="section-h">Featured <span>Project</span></h2>
-  <div class="divider"></div>
-
-  <div class="proj-card" id="pc1">
-    <div class="proj-card-title">
-      Eventrix
-      <a href="https://github.com/umairkarel/Eventrix" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        github
-      </a>
-    </div>
-    <div class="proj-card-tech">Python · FastAPI · PostgreSQL · Docker · Traefik</div>
-    <ul class="bullets">
-      <li>Built a <b>multi-tenant event ingestion pipeline</b> using <b>FastAPI</b> and <b>GTM Server</b>, with <b>Traefik</b> as the reverse proxy routing <b>GA4 event streams</b> through isolated per-tenant domains, eliminating ad-blocker data loss and improving <b>data collection completeness</b>.</li>
-      <li>Designed a <b>real-time enrichment layer</b> intercepting <b>GA4 Measurement Protocol</b> hits to inject accurate client metadata, preserving <b>geolocation and session attribution</b> in downstream analytical datasets.</li>
-      <li>Automated tenant onboarding by integrating <b>Cloudflare DNS</b> with <b>Traefik's dynamic routing</b>, backed by a <b>PostgreSQL</b> state machine and <b>async processing</b> to manage endpoint provisioning lifecycle without blocking the ingestion API.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- ACHIEVEMENTS -->
-<div class="section-wrap" id="achievements">
-  <div class="label">Recognition</div>
-  <h2 class="section-h">Certifications &amp; <span>Achievements</span></h2>
-  <div class="divider"></div>
-
-  <div class="ach-grid">
-    <div class="ach-card" id="a1">
-      <div class="ach-icon sf">❄️</div>
-      <div>
-        <h4>Snowflake SnowPro Core Certification</h4>
-        <p>Industry certification validating Snowflake architecture, data loading, transformation, and performance optimization expertise.</p>
-        <a class="ach-link" href="https://achieve.snowflake.com/026d4ab7-c4e3-4f91-b2cb-227ec0910c2c" target="_blank">View Credential →</a>
-      </div>
-    </div>
-    <div class="ach-card" id="a2">
-      <div class="ach-icon aw">🏆</div>
-      <div>
-        <h4>SQL Samurai Award</h4>
-        <p>Client rewarded for outstanding performance in SQL analysis and optimization.</p>
-        <a class="ach-link" href="https://www.linkedin.com/in/umairkarel/overlay/1779537778731/single-media-viewer/?profileId=ACoAADGKssABtYsq_0PCxcybUrn9r4XDBluOSBw" target="_blank">View Award →</a>
-      </div>
-    </div>
-    <div class="ach-card" id="a3">
-      <div class="ach-icon aws">☁️</div>
-      <div>
-        <h4>Cloud Computing 101 — AWS Badge</h4>
-        <p>Credly-verified AWS badge demonstrating foundational cloud architecture and core services knowledge.</p>
-        <a class="ach-link" href="https://www.credly.com/badges/d31a2916-b02f-4517-8bd7-4a82447a0ca0" target="_blank">View Badge →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- EDUCATION -->
-<div class="section-wrap" id="education">
-  <div class="label">Academic Background</div>
-  <h2 class="section-h">Education</h2>
-  <div class="divider"></div>
-  <div class="edu-card reveal">
-    <div class="edu-icon">🎓</div>
-    <div>
-      <h3>Dr. Babasaheb Ambedkar Technological University</h3>
-      <div class="edu-deg">Bachelors of Technology (B. Tech) in Computer Science</div>
-      <div class="edu-per">Raigad, Maharashtra, India · 2019 – 2023</div>
-      <div class="edu-gpa">⭐ CGPA: 8.47 / 10</div>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACT -->
-<div class="section-wrap" id="contact-section">
-  <div class="label">Get in touch</div>
-  <h2 class="section-h" style="text-align:center">Let's <span>Connect</span></h2>
-  <div class="divider" style="margin:0 auto 1.5rem"></div>
-  <p class="contact-desc">Open to senior Data Engineering roles, consulting opportunities, and interesting data platform challenges.</p>
-  <div class="contact-links">
-    <a class="c-link" href="mailto:umair.karel@gmail.com">
-      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      umair.karel@gmail.com
-    </a>
-    <a class="c-link" href="https://www.linkedin.com/in/umairkarel/" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      linkedin.com/in/umairkarel
-    </a>
-    <a class="c-link" href="https://github.com/umairkarel" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-      github.com/umairkarel
-    </a>
-    <a class="c-link" href="tel:+919370621692">
-      <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-      +91 9370621692
-    </a>
-  </div>
-</div>
-
-<footer>
-  <p>Designed &amp; built by <span>Umair Zahoor Karel</span> · Data Engineer · 2025</p>
-</footer>
-
-<script>
-// ── CANVAS PARTICLE NETWORK ──────────────────────────────────────────────────
-const canvas = document.getElementById('hero-canvas');
-const ctx    = canvas.getContext('2d');
-let particles = [], packets = [];
-let mouseX = -9999, mouseY = -9999;
-let hoveredIdx = -1;
-
-window.addEventListener('mousemove', e => {
-  const r = canvas.getBoundingClientRect();
-  mouseX = e.clientX - r.left;
-  mouseY = e.clientY - r.top;
-});
-document.addEventListener('mouseleave', () => { mouseX = -9999; mouseY = -9999; });
-
-function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-
-class Particle {
-  constructor() {
-    this.x  = Math.random() * canvas.width;
-    this.y  = Math.random() * canvas.height;
-    this.vx = (Math.random() - 0.5) * 0.38;
-    this.vy = (Math.random() - 0.5) * 0.38;
-    this.r  = Math.random() * 1.4 + 0.5;
-    this.op = Math.random() * 0.45 + 0.2;
-    this.pulse = Math.random() < 0.1;
-    this.ph = Math.random() * Math.PI * 2;
-    this.captureTimer = 0;
-  }
-  update() {
-    this.x += this.vx; this.y += this.vy; this.ph += 0.025;
-    if (this.x < 0) this.x = canvas.width;
-    if (this.x > canvas.width)  this.x = 0;
-    if (this.y < 0) this.y = canvas.height;
-    if (this.y > canvas.height) this.y = 0;
-    // Mouse attraction
-    const mdx = mouseX - this.x, mdy = mouseY - this.y;
-    const md  = Math.sqrt(mdx*mdx + mdy*mdy);
-    if (md < 150 && md > 0) {
-      const f = (150 - md) / 150 * 0.016;
-      this.vx += (mdx / md) * f; this.vy += (mdy / md) * f;
-      const spd = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
-      if (spd > 1.8) { this.vx = (this.vx/spd)*1.8; this.vy = (this.vy/spd)*1.8; }
-    }
-    // Capture: absorb particle when very close, respawn elsewhere
-    if (md < 32) {
-      this.captureTimer++;
-      if (this.captureTimer > 22) {
-        this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-        this.vx = (Math.random()-0.5)*0.38;    this.vy = (Math.random()-0.5)*0.38;
-        this.captureTimer = 0;
-      }
-    } else { this.captureTimer = Math.max(0, this.captureTimer - 1); }
-  }
-  draw() {
-    const p   = this.pulse ? Math.sin(this.ph) * 0.38 + 0.62 : 1;
-    const cap = Math.min(this.captureTimer / 22, 1);
-    const r   = this.r * p * (1 + cap * 2.5);
-    const op  = this.op * p;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
-    ctx.fillStyle = cap > 0 ? `rgba(0,212,255,${op + cap * 0.7})` : `rgba(0,212,255,${op})`;
-    ctx.fill();
-    if (this.pulse || cap > 0) {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, r * (cap > 0 ? 6 : 4.5), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,212,255,${cap > 0 ? 0.12 * cap : 0.055 * p})`;
-      ctx.fill();
-    }
-  }
-}
-
-function initParticles() {
-  particles = [];
-  const n = Math.min(85, Math.floor(canvas.width * canvas.height / 14000));
-  for (let i = 0; i < n; i++) particles.push(new Particle());
-}
-
-function drawEdges() {
-  const MAX = 135;
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const d  = Math.sqrt(dx*dx + dy*dy);
-      if (d < MAX) {
-        const boost = (hoveredIdx >= 0 && (i === hoveredIdx || j === hoveredIdx)) ? 0.5 : 0;
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(0,212,255,${(1 - d/MAX) * (0.18 + boost)})`;
-        ctx.lineWidth = boost > 0.1 ? 0.8 : 0.5;
-        ctx.stroke();
-      }
-    }
-  }
-}
-
-function tickPackets() {
-  if (Math.random() < 0.025 && packets.length < 10) {
-    const i = Math.floor(Math.random() * particles.length);
-    let best = -1, bd = Infinity;
-    for (let j = 0; j < particles.length; j++) {
-      if (j === i) continue;
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const d  = Math.sqrt(dx*dx + dy*dy);
-      if (d < 135 && d < bd) { bd = d; best = j; }
-    }
-    if (best !== -1) packets.push({ f: i, t: best, p: 0, s: 0.012 + Math.random() * 0.014 });
-  }
-  packets = packets.filter(pk => {
-    pk.p += pk.s;
-    if (pk.p > 1) return false;
-    const a = particles[pk.f], b = particles[pk.t];
-    if (!a || !b) return false;
-    const x = a.x + (b.x - a.x) * pk.p;
-    const y = a.y + (b.y - a.y) * pk.p;
-    ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(0,212,255,0.95)'; ctx.fill();
-    ctx.beginPath(); ctx.arc(x, y, 5.5, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(0,212,255,0.18)'; ctx.fill();
-    return true;
-  });
-}
-
-function drawMouseGlow() {
-  if (mouseX < -999 || hoveredIdx < 0) return;
-  const g = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 110);
-  g.addColorStop(0,   'rgba(0,212,255,0.09)');
-  g.addColorStop(0.4, 'rgba(0,212,255,0.04)');
-  g.addColorStop(1,   'rgba(0,212,255,0)');
-  ctx.fillStyle = g;
-  ctx.beginPath(); ctx.arc(mouseX, mouseY, 110, 0, Math.PI*2); ctx.fill();
-}
-
-function frame() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = 'rgba(0,212,255,0.022)'; ctx.lineWidth = 1;
-  for (let x = 0; x < canvas.width; x += 80) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
-  for (let y = 0; y < canvas.height; y += 80) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
-  hoveredIdx = -1;
-  for (let k = 0; k < particles.length; k++) {
-    const dx = particles[k].x - mouseX, dy = particles[k].y - mouseY;
-    if (dx*dx + dy*dy < 324) { hoveredIdx = k; break; }  // 18px radius
-  }
-  drawMouseGlow(); drawEdges(); tickPackets();
-  particles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(frame);
-}
-
-resize(); initParticles(); frame();
-window.addEventListener('resize', () => { resize(); initParticles(); });
-
-// ── TYPEWRITER ───────────────────────────────────────────────────────────────
-const roles = ['Data Engineer', 'Analytics Engineer', 'Pipeline Architect', 'ELT Specialist', 'SnowPro Core Certified'];
-let ri = 0, ci = 0, del = false;
-const typer = document.getElementById('typer');
-
-function type() {
-  const cur = roles[ri];
-  typer.textContent = del ? cur.slice(0, ci-1) : cur.slice(0, ci+1);
-  del ? ci-- : ci++;
-  if (!del && ci === cur.length)  { setTimeout(() => { del = true; type(); }, 2200); return; }
-  if (del  && ci === 0)           { del = false; ri = (ri+1) % roles.length; }
-  setTimeout(type, del ? 55 : 95);
-}
-type();
-
-// ── SCROLL REVEALS ───────────────────────────────────────────────────────────
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('in');
-    if (e.target.classList.contains('skill-cat')) {
-      e.target.querySelectorAll('.tag').forEach((t, i) => {
-        setTimeout(() => t.classList.add('in'), i * 55);
-      });
-    }
-    if (e.target.classList.contains('pipe-divider')) {
-      e.target.querySelectorAll('.pn').forEach((n, i) => {
-        n.style.transitionDelay = (0.35 + i * 0.2) + 's';
-      });
-    }
-  });
-}, { threshold: 0.08 });
-
-document.querySelectorAll('.reveal, .job, .proj-card, .ach-card, .skill-cat, .pipe-divider').forEach(el => io.observe(el));
-
-// ── COUNTERS ─────────────────────────────────────────────────────────────────
-const cio = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target, tgt = parseInt(el.dataset.count);
-    let cur = 0;
-    const step = Math.ceil(tgt / 28);
-    const t = setInterval(() => {
-      cur = Math.min(cur + step, tgt);
-      el.textContent = cur + '+';
-      if (cur >= tgt) clearInterval(t);
-    }, 55);
-    cio.unobserve(el);
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.stat-num[data-count]').forEach(el => cio.observe(el));
-
-// ── NAV TINT ─────────────────────────────────────────────────────────────────
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').style.borderBottomColor =
-    window.scrollY > 60 ? 'rgba(0,212,255,0.22)' : 'rgba(0,212,255,0.12)';
-});
-</script>
+<script src="data.js"></script>
+<script src="portfolio.js"></script>
 </body>
 </html>
